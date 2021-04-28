@@ -1,6 +1,7 @@
-const increment = ()=>{
+const increment = (steps=1)=>{
     return {
-        type : 'INCREMENT'
+        type : 'INCREMENT',
+        payload : steps
     }
 }
 
