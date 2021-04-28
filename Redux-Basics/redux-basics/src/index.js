@@ -4,48 +4,61 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
+import allReducer from "./reducers/index";
+import {Provider} from "react-redux";
 
-//STORE --> GLobalized Object
 
-//ACTION INCREAMENT
-const increment = () =>{
-  return {
-    type: 'INCREMENT'
-  }
-}
+// //STORE --> GLobalized Object
 
-const decrement = () => {
-  return {
-    type: 'DECREMENT'
-  }
-}
+// //ACTION INCREAMENT
+// const increment = () =>{
+//   return {
+//     type: 'INCREMENT'
+//   }
+// }
 
-//REDUCER --> Maps(State,Action)-> Next State
-const counter = (state = 0, action) =>{
-  switch(action.type){
-    case 'INCREMENT':
-      return state+1;
-    case 'DECREMENT':
-      return state-1;
-    default:
-      return state;
-  }
-}
+// const decrement = () => {
+//   return {
+//     type: 'DECREMENT'
+//   }
+// }
 
-let store=createStore(counter);
+// //REDUCER --> Maps(State,Action)-> Next State
+// const counter = (state = 0, action) =>{
+//   switch(action.type){
+//     case 'INCREMENT':
+//       return state+1;
+//     case 'DECREMENT':
+//       return state-1;
+//     default:
+//       return state;
+//   }
+// }
 
-//DISPATCH --> Displaces Event
+// let store=createStore(counter);
 
+// //DISPATCH --> Displaces Event
+
+// store.subscribe(() => {  console.log(store.getState()); });
+
+// store.dispatch(increment());
+
+// store.dispatch(decrement());
+
+let store=createStore(
+  allReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 store.subscribe(() => {  console.log(store.getState()); });
 
-store.dispatch(increment());
 
-store.dispatch(decrement());
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
